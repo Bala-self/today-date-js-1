@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODAY</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        user-select: none;
+    }
+.center{
+    display: flex;
+    color: #104e1a;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    font-size:90px;
+}
+</style>
+<body>
+    <div class="center" id="color">
+        <h1 id="dates">
+
+        </h1>
+        <h1 id="day">
+        
+        </h1>
+        <h1 id="time">
+
+        </h1>
+    </div>
+</body>
+<script>
+    function updateTime() {
+var today =new Date();
+var day=today.getDay();
+var daylist = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const date =today.getDate();
+const month=today.getMonth();
+const year=today.getFullYear();
+let   hour = today.getHours();
+const minute = today.getMinutes();
+const second =today.getSeconds();
+const millisec =today.getMilliseconds();
+
+let prepand =(hour >= 12) ? "PM" :"AM"
+hour = (hour >= 12) ? hour - 12 : hour;
+
+if (hour===0 && prepand === "PM") {
+
+    if (minute===0 && second === 0) {
+        hour =12;
+        prepand ='noon'
+
+    }else{
+        hour =12;
+        prepand='PM'
+    }
+}
+
+if (hour===0&&prepand==="AM") {
+    
+
+    if (minute===0&&second===0) {
+        hour=12;
+        prepand='midnight'
+    }else{
+        hour=12;
+        prepand='AM'
+    }
+}
+    
+let color = "#" + Math.floor(Math.random() * 16777215)
+  .toString(16)
+  .padStart(6, "0");
+
+
+var time =document.getElementById("time")
+var dates =document.getElementById("dates")
+var week=document.getElementById("day")
+var door=document.getElementById("color")
+door.style.color=color
+door.style.transitionDuration=".5s"
+dates.textContent=`DATE:${date}/${month}/${year}`
+week.textContent=`DAY:${daylist[day]}`
+time.textContent=`CURRENT TIME:${hour} / ${minute} / ${second}/${millisec}-${prepand}`
+
+    }
+    setInterval(updateTime, 100);
+</script>
+</html>
